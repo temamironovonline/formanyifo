@@ -213,7 +213,6 @@ namespace MyApp // Note: actual namespace depends on the project name.
             printData(users);
             Console.WriteLine();
             createNewFile("usersSigns.csv", users);
-
         }
 
 
