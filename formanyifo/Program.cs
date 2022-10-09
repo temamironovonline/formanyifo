@@ -210,7 +210,6 @@ namespace MyApp // Note: actual namespace depends on the project name.
             List<Users> users = new List<Users>();
             string currentPathForRead = Environment.CurrentDirectory;
             currentPathForRead = currentPathForRead.Replace("bin\\Debug\\net6.0", "horoscopeEastern.csv");
-            Console.WriteLine(currentPathForRead);
             getData(currentPathForRead, users);
             checkSigns(users);
             printData(users);
