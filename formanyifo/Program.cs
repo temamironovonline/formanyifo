@@ -1,6 +1,6 @@
 ﻿using MyApp;
 using System;
-
+using System.Text;
 namespace MyApp // Note: actual namespace depends on the project name.
 {
     struct Users
@@ -24,7 +24,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
     {
         static void getData(string path, List<Users> L)
         {
-            using (StreamReader sr = new StreamReader(path))
+            using (StreamReader sr = new StreamReader(path, Encoding.UTF8))
             {
                 while (sr.EndOfStream != true)
                 {
@@ -49,7 +49,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
 
         static void createNewFile(string path, List<Users> L)
         {
-            using (StreamWriter sw = new StreamWriter(path))
+            using (StreamWriter sw = new StreamWriter(path, false, Encoding.UTF8))
             {
                 foreach (Users u in L)
                 {
@@ -154,7 +154,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
                         a = 1900;
                         while (a > Convert.ToInt32(u.year))
                         {
-                            for (int j = 11; j > 0 && a > Convert.ToInt32(u.year); j--)
+                            for (int j = 11; j >= 0 && a > Convert.ToInt32(u.year); j--)
                             {
                                 a--;
                                 sign = j;
@@ -208,11 +208,15 @@ namespace MyApp // Note: actual namespace depends on the project name.
         static void Main(string[] args)
         {
             List<Users> users = new List<Users>();
-            getData("horoscopeEastern.csv", users);
+            string currentPathForRead = Environment.CurrentDirectory;
+            currentPathForRead = currentPathForRead.Replace("bin\\Debug\\net6.0", "horoscopeEastern.csv");
+            Console.WriteLine(currentPathForRead);
+            getData(currentPathForRead, users);
             checkSigns(users);
             printData(users);
             Console.WriteLine();
-            createNewFile("usersSigns.csv", users);
+            currentPathForRead = currentPathForRead.Replace("horoscopeEastern.csv", "usersSigns.csv");
+            createNewFile(currentPathForRead, users);
         }
 
 
